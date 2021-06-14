@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './registration_form.dart';
 
 class Medicines extends StatefulWidget {
   const Medicines({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class _MedicinesState extends State<Medicines> {
           )),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: _registerMedicine,
         backgroundColor: Colors.green,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -45,7 +46,7 @@ class _MedicinesState extends State<Medicines> {
       children: [
         CheckboxListTile(
           title: const Text('ジェイゾロフト', style: TextStyle(color: Colors.black)),
-          onChanged: _addMedicine(),
+          onChanged: _takeMedicine(),
           value: false,
           controlAffinity: ListTileControlAffinity.leading,
           activeColor: Colors.green,
@@ -54,7 +55,7 @@ class _MedicinesState extends State<Medicines> {
         const Divider(),
         CheckboxListTile(
           title: const Text('リフレックス', style: TextStyle(color: Colors.black)),
-          onChanged: _addMedicine(),
+          onChanged: _takeMedicine(),
           value: false,
           controlAffinity: ListTileControlAffinity.leading,
           activeColor: Colors.green,
@@ -65,5 +66,13 @@ class _MedicinesState extends State<Medicines> {
     );
   }
 
-  _addMedicine() {}
+  _takeMedicine() {}
+
+  void _registerMedicine() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return const MedicineRegistrationForm();
+      }),
+    );
+  }
 }

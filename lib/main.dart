@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import './medicines.dart';
+import './medicines/index.dart';
 
 void main() => runApp(const Mediary());
 
