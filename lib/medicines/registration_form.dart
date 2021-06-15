@@ -9,6 +9,21 @@ class MedicineRegistrationForm extends StatefulWidget {
 }
 
 class _MedicineRegistrationFormState extends State<MedicineRegistrationForm> {
+  final FocusNode _quantityFocusNode = FocusNode();
+  final TextEditingController _quantityTextFieldController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    _quantityFocusNode.addListener(() {
+      if (_quantityFocusNode.hasFocus) {
+        FocusScope.of(context).requestFocus(FocusNode());
+        _selectTime();
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,11 +36,25 @@ class _MedicineRegistrationFormState extends State<MedicineRegistrationForm> {
                   child: Column(
                     children: [
                       TextFormField(
-                        decoration: const InputDecoration(labelText: 'Name'),
+                        decoration: const InputDecoration(
+                            labelText: '薬の名前', icon: Icon(Icons.healing)),
+                      ),
+                      Row(
+                        children: const [
+                          Flexible(
+                              child: TextField(
+                            decoration: InputDecoration(
+                                labelText: '服用量',
+                                icon: Icon(Icons.takeout_dining)),
+                          )),
+                          Text('錠')
+                        ],
                       ),
                       TextFormField(
-                        decoration:
-                            const InputDecoration(labelText: 'quantity'),
+                        focusNode: _quantityFocusNode,
+                        controller: _quantityTextFieldController,
+                        decoration: const InputDecoration(
+                            labelText: '服用時刻を入力', icon: Icon(Icons.schedule)),
                       ),
                     ],
                   )),
@@ -34,8 +63,20 @@ class _MedicineRegistrationFormState extends State<MedicineRegistrationForm> {
                   height: 40.0,
                   child: ElevatedButton(
                       onPressed: () {},
-                      child: const Text('Submit'),
+                      child: const Text('登録'),
                       style: ElevatedButton.styleFrom(primary: Colors.green)))
             ])));
+  }
+
+  void _selectTime() async {
+    TimeOfDay? newTime = await showTimePicker(
+      context: context,
+      initialTime: const TimeOfDay(hour: 8, minute: 0),
+    );
+    if (newTime != null) {
+      setState(() {
+        _quantityTextFieldController.text = newTime.format(context).toString();
+      });
+    }
   }
 }
