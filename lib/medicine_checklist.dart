@@ -11,7 +11,6 @@ class _MedicinesCheckListState extends State<MedicinesCheckList> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      // padding: const EdgeInsets.only(top: 16.0),
       children: [
         ListTile(
           title: Row(
