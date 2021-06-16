@@ -3,8 +3,6 @@ import 'medicine_checklist.dart';
 import 'medicine_list.dart';
 import 'medicine_registration_form.dart';
 
-// home.dart
-// import 'medicine_registration_form.dart'
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 

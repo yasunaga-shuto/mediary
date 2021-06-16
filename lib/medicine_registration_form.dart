@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// medicine_registration_form.dart
 class MedicineRegistrationForm extends StatefulWidget {
   const MedicineRegistrationForm({Key? key}) : super(key: key);
 
