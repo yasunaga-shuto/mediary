@@ -11,26 +11,37 @@ class _MedicinesCheckListState extends State<MedicinesCheckList> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(16.0),
+      // padding: const EdgeInsets.only(top: 16.0),
       children: [
+        ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Icon(Icons.chevron_left),
+              Text('6月17日（木）'),
+              Icon(Icons.chevron_right)
+            ],
+          ),
+        ),
+        const Divider(height: 1),
         CheckboxListTile(
           title: const Text('ジェイゾロフト', style: TextStyle(color: Colors.black)),
+          subtitle: const Text('1錠 - 19:30'),
           onChanged: _takeMedicine(),
           value: false,
-          controlAffinity: ListTileControlAffinity.leading,
           activeColor: Colors.green,
-          secondary: const Text('19:30', style: TextStyle(color: Colors.black)),
+          secondary: Image.asset('assets/images/medicine.png', width: 35),
         ),
-        const Divider(),
+        const Divider(height: 1),
         CheckboxListTile(
           title: const Text('リフレックス', style: TextStyle(color: Colors.black)),
+          subtitle: const Text('1錠 - 23:30'),
           onChanged: _takeMedicine(),
           value: false,
-          controlAffinity: ListTileControlAffinity.leading,
           activeColor: Colors.green,
-          secondary: const Text('23:30', style: TextStyle(color: Colors.black)),
+          secondary: Image.asset('assets/images/medicine.png', width: 35),
         ),
-        const Divider(),
+        const Divider(height: 1),
       ],
     );
   }
