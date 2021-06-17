@@ -29,7 +29,7 @@ class _MedicinesCheckListState extends State<MedicinesCheckList> {
           onChanged: _takeMedicine(),
           value: false,
           activeColor: Colors.green,
-          secondary: Image.asset('assets/images/medicine.png', width: 35),
+          secondary: Image.asset('assets/images/jazoloft.jpeg', width: 45),
         ),
         const Divider(height: 1),
         CheckboxListTile(
@@ -38,7 +38,7 @@ class _MedicinesCheckListState extends State<MedicinesCheckList> {
           onChanged: _takeMedicine(),
           value: false,
           activeColor: Colors.green,
-          secondary: Image.asset('assets/images/medicine.png', width: 35),
+          secondary: Image.asset('assets/images/reflex.jpeg', width: 45),
         ),
         const Divider(height: 1),
       ],
