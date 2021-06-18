@@ -18,7 +18,11 @@ class MedicineRepository {
       'updatedAt': now.toString(),
     };
     final db = await instance.database;
-    final id = await db.insert(table, row);
+    final id = await db.insert(
+      table,
+      row,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
     return Medicine(
       id: id,
       name: row['title'],
@@ -33,8 +37,7 @@ class MedicineRepository {
   static Future<List<Medicine>> getAll() async {
     final Database db = await instance.database;
 
-    final rows =
-        await db.rawQuery('SELECT * FROM $table ORDER BY updatedAt DESC');
+    final rows = await db.rawQuery('SELECT * FROM $table');
     return rows.map((json) => Medicine.fromMap(json)).toList();
   }
 }

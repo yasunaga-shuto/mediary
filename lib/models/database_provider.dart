@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:flutter/widgets.dart';
 
 class DatabaseProvider {
   final databaseName = 'mediary_database.db';
@@ -10,6 +11,7 @@ class DatabaseProvider {
   static final DatabaseProvider instance = DatabaseProvider._();
 
   Future<Database> get database async {
+    WidgetsFlutterBinding.ensureInitialized();
     return openDatabase(
       join(await getDatabasesPath(), databaseName),
       onCreate: (db, version) {
@@ -25,7 +27,7 @@ class DatabaseProvider {
           )
         ''');
       },
-      version: 1,
+      version: 2,
     );
   }
 }

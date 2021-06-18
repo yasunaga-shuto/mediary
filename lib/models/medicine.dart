@@ -28,15 +28,20 @@ class Medicine {
     };
   }
 
-  factory Medicine.fromMap(Map<String, dynamic> json) => Medicine(
-    id: json['id'],
-    name: json['name'],
-    quantity: json['quantity'],
-    unit: json['unit'],
-    takenAt: json['takenAt'],
-    createdAt: json['createdAt'],
-    updatedAt: json['updatedAt'],
-  );
+  factory Medicine.fromMap(Map<String, dynamic> json) {
+    var time = json['takenAt'].split(":");
+    var takenAt =
+        TimeOfDay(hour: int.parse(time[0]), minute: int.parse(time[1]));
+    return Medicine(
+      id: json['id'],
+      name: json['name'],
+      quantity: json['quantity'],
+      unit: json['unit'],
+      takenAt: takenAt,
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
+    );
+  }
 
   @override
   String toString() {
