@@ -12,10 +12,21 @@ class DatabaseProvider {
 
   Future<Database> get database async {
     WidgetsFlutterBinding.ensureInitialized();
+    final database = await _initDatabase();
+    return database;
+  }
+
+  Future<Database> _initDatabase() async {
     return openDatabase(
       join(await getDatabasesPath(), databaseName),
-      onCreate: (db, version) {
-        return db.execute('''
+      onCreate: _createTable,
+      onUpgrade: _updateTable,
+      version: 7,
+    );
+  }
+
+  void _createTable(Database db, int version) {
+    db.execute('''
           CREATE TABLE medicines(
             id INTEGER PRIMARY KEY,
             name TEXT,
@@ -26,8 +37,12 @@ class DatabaseProvider {
             updatedAt TEXT
           )
         ''');
-      },
-      version: 2,
-    );
+  }
+
+  void _updateTable(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < newVersion) {
+      await db.execute("DROP TABLE IF EXISTS medicines;");
+      _createTable(db, newVersion);
+    }
   }
 }

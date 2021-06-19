@@ -1,5 +1,6 @@
 import 'package:mediary/models/database_provider.dart';
 import 'package:mediary/models/medicine.dart';
+import 'package:mediary/helpers/time_of_day_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MedicineRepository {
@@ -25,10 +26,10 @@ class MedicineRepository {
     );
     return Medicine(
       id: id,
-      name: row['title'],
+      name: row['name'],
       quantity: row['quantity'],
       unit: row['unit'],
-      takenAt: row['takenAt'],
+      takenAt: TimeOfDayHelper.parse(row['takenAt']),
       createdAt: now,
       updatedAt: now,
     );

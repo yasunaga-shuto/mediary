@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mediary/models/medicine_repository.dart';
 
 class MedicineRegistrationForm extends StatefulWidget {
   const MedicineRegistrationForm({Key? key}) : super(key: key);
@@ -10,14 +11,15 @@ class MedicineRegistrationForm extends StatefulWidget {
 }
 
 class _MedicineRegistrationFormState extends State<MedicineRegistrationForm> {
-  final FocusNode _quantityFocusNode = FocusNode();
-  final TextEditingController _quantityTextFieldController =
-      TextEditingController();
+  final FocusNode _takenAtFocusNode = FocusNode();
+  final TextEditingController _takenAtController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
 
   @override
   void initState() {
-    _quantityFocusNode.addListener(() {
-      if (_quantityFocusNode.hasFocus) {
+    _takenAtFocusNode.addListener(() {
+      if (_takenAtFocusNode.hasFocus) {
         FocusScope.of(context).requestFocus(FocusNode());
         _selectTime();
       }
@@ -28,49 +30,63 @@ class _MedicineRegistrationFormState extends State<MedicineRegistrationForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('お薬の登録')),
-        body: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Column(children: <Widget>[
-              Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        decoration: const InputDecoration(
-                            labelText: '薬の名前 *', icon: Icon(Icons.healing)),
+      appBar: AppBar(title: const Text('お薬の登録')),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          children: <Widget>[
+            Container(
+                margin: const EdgeInsets.only(bottom: 20),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: '薬の名前 *',
+                        icon: Icon(Icons.healing),
                       ),
-                      Row(
-                        children: [
-                          Flexible(
-                              child: TextField(
+                      controller: _nameController,
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: TextField(
+                            controller: _quantityController,
                             keyboardType: TextInputType.number,
                             inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
+                              FilteringTextInputFormatter.digitsOnly,
                             ],
                             decoration: const InputDecoration(
-                                labelText: '服用量',
-                                icon: Icon(Icons.takeout_dining)),
-                          )),
-                          const Text('錠')
-                        ],
+                              labelText: '服用量',
+                              icon: Icon(Icons.takeout_dining),
+                            ),
+                          ),
+                        ),
+                        const Text('錠'),
+                      ],
+                    ),
+                    TextFormField(
+                      focusNode: _takenAtFocusNode,
+                      controller: _takenAtController,
+                      decoration: const InputDecoration(
+                        labelText: '服用時刻を入力 *',
+                        icon: Icon(Icons.schedule),
                       ),
-                      TextFormField(
-                        focusNode: _quantityFocusNode,
-                        controller: _quantityTextFieldController,
-                        decoration: const InputDecoration(
-                            labelText: '服用時刻を入力 *', icon: Icon(Icons.schedule)),
-                      ),
-                    ],
-                  )),
-              SizedBox(
-                  width: double.infinity,
-                  height: 40.0,
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('登録'),
-                      style: ElevatedButton.styleFrom(primary: Colors.green)))
-            ])));
+                    ),
+                  ],
+                )),
+            SizedBox(
+              width: double.infinity,
+              height: 40.0,
+              child: ElevatedButton(
+                onPressed: _registerMedicine,
+                child: const Text('登録'),
+                style: ElevatedButton.styleFrom(primary: Colors.green),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void _selectTime() async {
@@ -80,8 +96,17 @@ class _MedicineRegistrationFormState extends State<MedicineRegistrationForm> {
     );
     if (newTime != null) {
       setState(() {
-        _quantityTextFieldController.text = newTime.format(context).toString();
+        _takenAtController.text = newTime.format(context).toString();
       });
     }
+  }
+
+  void _registerMedicine() {
+    MedicineRepository.create(
+      _nameController.text,
+      int.parse(_quantityController.text),
+      '錠',
+      _takenAtController.text,
+    );
   }
 }

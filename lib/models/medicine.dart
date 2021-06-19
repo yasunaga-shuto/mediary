@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mediary/helpers/time_of_day_helper.dart';
 
 class Medicine {
   final int id;
@@ -29,17 +30,12 @@ class Medicine {
   }
 
   factory Medicine.fromMap(Map<String, dynamic> json) {
-    var time = json['takenAt'].split(":");
-    var takenAt = TimeOfDay(
-      hour: int.parse(time[0]),
-      minute: int.parse(time[1]),
-    );
     return Medicine(
       id: json['id'],
       name: json['name'],
       quantity: json['quantity'],
       unit: json['unit'],
-      takenAt: takenAt,
+      takenAt: TimeOfDayHelper.parse(json['takenAt']),
       createdAt: DateTime.tryParse(json['createdAt'] ?? ''),
       updatedAt: DateTime.tryParse(json['updatedAt'] ?? ''),
     );
