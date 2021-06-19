@@ -47,7 +47,7 @@ class _MedicineListState extends State<MedicineList> {
         return ListTile(
           title: Text(_medicine.name),
           subtitle: Text(
-            "${_medicine.takenAt.format(context)} - ${_medicine.quantity}錠",
+            '${_medicine.takenAt.format(context)} - ${_medicine.quantity}錠',
           ),
           trailing: IconButton(
             icon: const Icon(Icons.delete),
@@ -57,7 +57,7 @@ class _MedicineListState extends State<MedicineList> {
             Navigator.of(context).push(
               MaterialPageRoute<void>(builder: (BuildContext context) {
                 return MedicineForm(
-                  type: "edit",
+                  type: 'edit',
                   id: _medicine.id,
                   name: _medicine.name,
                   quantity: _medicine.quantity,

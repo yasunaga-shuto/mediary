@@ -4,7 +4,7 @@ import 'package:mediary/helpers/time_of_day_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MedicineRepository {
-  static String table = "medicines";
+  static String table = 'medicines';
   static DatabaseProvider instance = DatabaseProvider.instance;
 
   static Future<Medicine> create(

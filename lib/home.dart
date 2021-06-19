@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return const MedicineForm(type: "registration");
+                    return const MedicineForm(type: 'registration');
                   }),
                 );
               },

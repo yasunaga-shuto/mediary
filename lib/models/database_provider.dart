@@ -41,7 +41,7 @@ class DatabaseProvider {
 
   void _updateTable(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < newVersion) {
-      await db.execute("DROP TABLE IF EXISTS medicines;");
+      await db.execute('DROP TABLE IF EXISTS medicines;');
       _createTable(db, newVersion);
     }
   }

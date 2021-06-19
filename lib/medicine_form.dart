@@ -93,7 +93,16 @@ class _MedicineFormState extends State<MedicineForm> {
               width: double.infinity,
               height: 40.0,
               child: ElevatedButton(
-                onPressed: _registerMedicine,
+                onPressed: () {
+                  switch (widget.type) {
+                    case 'registration':
+                      _registerMedicine();
+                      break;
+                    case 'edit':
+                      _updateMedicine();
+                      break;
+                  }
+                },
                 child: _getFormAction(),
                 style: ElevatedButton.styleFrom(primary: Colors.green),
               ),
@@ -129,33 +138,35 @@ class _MedicineFormState extends State<MedicineForm> {
     Navigator.of(context).pop();
   }
 
+  void _updateMedicine() {}
+
   // TODO: I18n化
   Widget _getFormTitle() {
     switch (widget.type) {
-      case "registration":
-        return const Text("お薬の登録");
-      case "edit":
-        return const Text("お薬の編集");
+      case 'registration':
+        return const Text('お薬の登録');
+      case 'edit':
+        return const Text('お薬の編集');
       default:
-        return const Text("");
+        return const Text('');
     }
   }
 
   Widget _getFormAction() {
     switch (widget.type) {
-      case "registration":
-        return const Text("登録");
-      case "edit":
-        return const Text("更新");
+      case 'registration':
+        return const Text('登録');
+      case 'edit':
+        return const Text('更新');
       default:
-        return const Text("");
+        return const Text('');
     }
   }
 
   void _setDefaultText() {
-    _nameController.text = widget.name ?? "";
+    _nameController.text = widget.name ?? '';
     _quantityController.text =
-        widget.quantity == null ? "" : widget.quantity.toString();
+        widget.quantity == null ? '' : widget.quantity.toString();
     _takenAtController.text = widget.takenAt!.format(context);
   }
 }
