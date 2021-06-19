@@ -3,7 +3,20 @@ import 'package:flutter/services.dart';
 import 'package:mediary/models/medicine_repository.dart';
 
 class MedicineForm extends StatefulWidget {
-  const MedicineForm({Key? key}) : super(key: key);
+  const MedicineForm({
+    Key? key,
+    required this.type,
+    this.id,
+    this.name,
+    this.quantity,
+    this.takenAt,
+  }) : super(key: key);
+
+  final String type;
+  final int? id;
+  final String? name;
+  final int? quantity;
+  final TimeOfDay? takenAt;
 
   @override
   _MedicineFormState createState() => _MedicineFormState();
@@ -24,12 +37,15 @@ class _MedicineFormState extends State<MedicineForm> {
       }
     });
     super.initState();
+    Future.delayed(Duration.zero, () {
+      _setDefaultText();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('お薬の登録')),
+      appBar: AppBar(title: _getFormTitle()),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
@@ -78,7 +94,7 @@ class _MedicineFormState extends State<MedicineForm> {
               height: 40.0,
               child: ElevatedButton(
                 onPressed: _registerMedicine,
-                child: const Text('登録'),
+                child: _getFormAction(),
                 style: ElevatedButton.styleFrom(primary: Colors.green),
               ),
             ),
@@ -91,7 +107,7 @@ class _MedicineFormState extends State<MedicineForm> {
   void _selectTime() async {
     TimeOfDay? newTime = await showTimePicker(
       context: context,
-      initialTime: const TimeOfDay(hour: 8, minute: 0),
+      initialTime: const TimeOfDay(hour: 0, minute: 0),
     );
     if (newTime != null) {
       setState(() {
@@ -111,5 +127,35 @@ class _MedicineFormState extends State<MedicineForm> {
       _takenAtController.text,
     );
     Navigator.of(context).pop();
+  }
+
+  // TODO: I18n化
+  Widget _getFormTitle() {
+    switch (widget.type) {
+      case "registration":
+        return const Text("お薬の登録");
+      case "edit":
+        return const Text("お薬の編集");
+      default:
+        return const Text("");
+    }
+  }
+
+  Widget _getFormAction() {
+    switch (widget.type) {
+      case "registration":
+        return const Text("登録");
+      case "edit":
+        return const Text("更新");
+      default:
+        return const Text("");
+    }
+  }
+
+  void _setDefaultText() {
+    _nameController.text = widget.name ?? "";
+    _quantityController.text =
+        widget.quantity == null ? "" : widget.quantity.toString();
+    _takenAtController.text = widget.takenAt!.format(context);
   }
 }

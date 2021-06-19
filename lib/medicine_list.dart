@@ -56,7 +56,13 @@ class _MedicineListState extends State<MedicineList> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute<void>(builder: (BuildContext context) {
-                return const MedicineForm();
+                return MedicineForm(
+                  type: "edit",
+                  id: _medicine.id,
+                  name: _medicine.name,
+                  quantity: _medicine.quantity,
+                  takenAt: _medicine.takenAt,
+                );
               }),
             );
           },
