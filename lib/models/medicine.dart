@@ -6,8 +6,8 @@ class Medicine {
   final int? quantity;
   final String? unit;
   final TimeOfDay takenAt;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   Medicine({
     required this.id,
@@ -30,16 +30,18 @@ class Medicine {
 
   factory Medicine.fromMap(Map<String, dynamic> json) {
     var time = json['takenAt'].split(":");
-    var takenAt =
-        TimeOfDay(hour: int.parse(time[0]), minute: int.parse(time[1]));
+    var takenAt = TimeOfDay(
+      hour: int.parse(time[0]),
+      minute: int.parse(time[1]),
+    );
     return Medicine(
       id: json['id'],
       name: json['name'],
       quantity: json['quantity'],
       unit: json['unit'],
       takenAt: takenAt,
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
+      createdAt: DateTime.tryParse(json['createdAt'] ?? ''),
+      updatedAt: DateTime.tryParse(json['updatedAt'] ?? ''),
     );
   }
 
