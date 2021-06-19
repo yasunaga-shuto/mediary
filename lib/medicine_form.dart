@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mediary/models/medicine_repository.dart';
 
-class MedicineRegistrationForm extends StatefulWidget {
-  const MedicineRegistrationForm({Key? key}) : super(key: key);
+class MedicineForm extends StatefulWidget {
+  const MedicineForm({Key? key}) : super(key: key);
 
   @override
-  _MedicineRegistrationFormState createState() =>
-      _MedicineRegistrationFormState();
+  _MedicineFormState createState() => _MedicineFormState();
 }
 
-class _MedicineRegistrationFormState extends State<MedicineRegistrationForm> {
+class _MedicineFormState extends State<MedicineForm> {
   final FocusNode _takenAtFocusNode = FocusNode();
   final TextEditingController _takenAtController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();

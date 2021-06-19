@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mediary/medicine_form.dart';
 import 'package:mediary/models/medicine_model.dart';
 import 'package:mediary/models/medicine.dart';
 
@@ -52,6 +53,13 @@ class _MedicineListState extends State<MedicineList> {
             icon: const Icon(Icons.delete),
             onPressed: () {},
           ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (BuildContext context) {
+                return const MedicineForm();
+              }),
+            );
+          },
         );
       },
       separatorBuilder: (BuildContext context, int index) {

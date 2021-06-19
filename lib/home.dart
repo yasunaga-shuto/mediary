@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'medicine_checklist.dart';
 import 'medicine_list.dart';
-import 'medicine_registration_form.dart';
+import 'medicine_form.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return const MedicineRegistrationForm();
+                    return const MedicineForm();
                   }),
                 );
               },
