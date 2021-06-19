@@ -104,6 +104,7 @@ class _MedicineRegistrationFormState extends State<MedicineRegistrationForm> {
   void _registerMedicine() {
     // TODO: バリデーション
     // TODO: unitを変えられるようにする
+    // TODO: 再描画
     MedicineRepository.create(
       _nameController.text,
       int.parse(_quantityController.text),

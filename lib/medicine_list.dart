@@ -24,13 +24,39 @@ class _MedicineListState extends State<MedicineList> {
   ) {
     if (snapshot.connectionState == ConnectionState.done) {
       if (snapshot.hasData) {
-        return _buildMedicineList();
+        return _buildMedicineList(snapshot);
       } else {
         return _buildEmptyState();
       }
     } else {
       return const CircularProgressIndicator();
     }
+  }
+
+  Widget _buildMedicineList(AsyncSnapshot<List<Medicine>> medicines) {
+    var data = medicines.data;
+    return ListView.separated(
+      itemCount: data!.length + 1,
+      itemBuilder: (BuildContext context, int index) {
+        if (index == data.length) {
+          return const Divider(height: 1);
+        }
+
+        return ListTile(
+          title: Text(data[index].name),
+          subtitle: Text(
+            "${data[index].takenAt.format(context)} - ${data[index].quantity}錠",
+          ),
+          trailing: IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () {},
+          ),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(height: 1);
+      },
+    );
   }
 
   Widget _buildEmptyState() {
@@ -50,9 +76,5 @@ class _MedicineListState extends State<MedicineList> {
         const Text('右下のボタンからお薬の登録ができます。'),
       ],
     );
-  }
-
-  Widget _buildMedicineList() {
-    return ListView();
   }
 }
