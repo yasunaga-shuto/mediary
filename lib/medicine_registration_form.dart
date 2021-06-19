@@ -102,11 +102,14 @@ class _MedicineRegistrationFormState extends State<MedicineRegistrationForm> {
   }
 
   void _registerMedicine() {
+    // TODO: バリデーション
+    // TODO: unitを変えられるようにする
     MedicineRepository.create(
       _nameController.text,
       int.parse(_quantityController.text),
       '錠',
       _takenAtController.text,
     );
+    Navigator.of(context).pop();
   }
 }

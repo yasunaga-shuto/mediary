@@ -24,7 +24,7 @@ class _MedicineListState extends State<MedicineList> {
   ) {
     if (snapshot.connectionState == ConnectionState.done) {
       if (snapshot.hasData) {
-        return ListView();
+        return _buildMedicineList();
       } else {
         return _buildEmptyState();
       }
@@ -50,5 +50,9 @@ class _MedicineListState extends State<MedicineList> {
         const Text('右下のボタンからお薬の登録ができます。'),
       ],
     );
+  }
+
+  Widget _buildMedicineList() {
+    return ListView();
   }
 }
