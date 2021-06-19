@@ -62,9 +62,11 @@ class _HomeState extends State<Home> {
           onTap: (int index) {
             _selectedIndex = index;
 
-            _pageController.animateToPage(index,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeIn);
+            _pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeIn,
+            );
           }),
       floatingActionButton: _selectedIndex == 1
           ? FloatingActionButton(

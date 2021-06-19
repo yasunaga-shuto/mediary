@@ -36,7 +36,7 @@ class MedicineRepository {
   }
 
   static Future<List<Medicine>> getAll() async {
-    final Database db = await instance.database;
+    final db = await instance.database;
 
     final rows = await db.rawQuery('SELECT * FROM $table');
     return rows.map((json) => Medicine.fromMap(json)).toList();

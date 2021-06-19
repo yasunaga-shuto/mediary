@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mediary/models/medicine_model.dart';
+import 'package:mediary/models/medicine.dart';
 
 class MedicineList extends StatefulWidget {
   const MedicineList({Key? key}) : super(key: key);
@@ -11,13 +12,24 @@ class MedicineList extends StatefulWidget {
 class _MedicineListState extends State<MedicineList> {
   @override
   Widget build(BuildContext context) {
-    var model = MedicineModel();
-    model.getMedicines();
-    var medicines = model.list;
-    if (medicines.isEmpty) {
-      return _buildEmptyState();
+    return FutureBuilder(
+      future: MedicineModel().getMedicines(),
+      builder: _buildList,
+    );
+  }
+
+  Widget _buildList(
+    BuildContext context,
+    AsyncSnapshot<List<Medicine>> snapshot,
+  ) {
+    if (snapshot.connectionState == ConnectionState.done) {
+      if (snapshot.hasData) {
+        return ListView();
+      } else {
+        return _buildEmptyState();
+      }
     } else {
-      return ListView();
+      return const CircularProgressIndicator();
     }
   }
 
