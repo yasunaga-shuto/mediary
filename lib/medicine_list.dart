@@ -34,18 +34,19 @@ class _MedicineListState extends State<MedicineList> {
   }
 
   Widget _buildMedicineList(AsyncSnapshot<List<Medicine>> medicines) {
-    var data = medicines.data;
+    final _medicines = medicines.data;
     return ListView.separated(
-      itemCount: data!.length + 1,
+      itemCount: _medicines!.length + 1,
       itemBuilder: (BuildContext context, int index) {
-        if (index == data.length) {
+        if (index == _medicines.length) {
           return const Divider(height: 1);
         }
 
+        final _medicine = _medicines[index];
         return ListTile(
-          title: Text(data[index].name),
+          title: Text(_medicine.name),
           subtitle: Text(
-            "${data[index].takenAt.format(context)} - ${data[index].quantity}錠",
+            "${_medicine.takenAt.format(context)} - ${_medicine.quantity}錠",
           ),
           trailing: IconButton(
             icon: const Icon(Icons.delete),
