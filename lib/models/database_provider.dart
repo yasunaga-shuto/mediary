@@ -1,9 +1,9 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-import 'package:flutter/widgets.dart';
+import "package:sqflite/sqflite.dart";
+import "package:path/path.dart";
+import "package:flutter/widgets.dart";
 
 class DatabaseProvider {
-  final databaseName = 'mediary_database.db';
+  final databaseName = "mediary_database.db";
   final databaseVersion = 2;
 
   DatabaseProvider._();
@@ -41,7 +41,7 @@ class DatabaseProvider {
 
   void _updateTable(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < newVersion) {
-      await db.execute('DROP TABLE IF EXISTS medicines;');
+      await db.execute("DROP TABLE IF EXISTS medicines;");
       _createTable(db, newVersion);
     }
   }

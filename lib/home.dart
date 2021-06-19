@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'medicine_checklist.dart';
-import 'medicine_list.dart';
-import 'medicine_form.dart';
+import "package:flutter/material.dart";
+import "medicine_checklist.dart";
+import "medicine_list.dart";
+import "medicine_form.dart";
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mediary'),
+        title: const Text("Mediary"),
       ),
       body: PageView(
         controller: _pageController,
@@ -55,9 +55,9 @@ class _HomeState extends State<Home> {
           currentIndex: _selectedIndex,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.check_box), label: '服用チェック'),
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: '薬一覧'),
-            BottomNavigationBarItem(icon: Icon(Icons.event), label: 'カレンダー')
+                icon: Icon(Icons.check_box), label: "服用チェック"),
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: "薬一覧"),
+            BottomNavigationBarItem(icon: Icon(Icons.event), label: "カレンダー")
           ],
           onTap: (int index) {
             _selectedIndex = index;
@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(builder: (BuildContext context) {
-                    return const MedicineForm(type: 'registration');
+                    return const MedicineForm(type: "registration");
                   }),
                 );
               },

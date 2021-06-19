@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mediary/models/medicine_repository.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
+import "package:mediary/models/medicine_repository.dart";
 
 class MedicineForm extends StatefulWidget {
   const MedicineForm({
@@ -56,7 +56,7 @@ class _MedicineFormState extends State<MedicineForm> {
                   children: [
                     TextFormField(
                       decoration: const InputDecoration(
-                        labelText: '薬の名前 *',
+                        labelText: "薬の名前 *",
                         icon: Icon(Icons.healing),
                       ),
                       controller: _nameController,
@@ -71,19 +71,19 @@ class _MedicineFormState extends State<MedicineForm> {
                               FilteringTextInputFormatter.digitsOnly,
                             ],
                             decoration: const InputDecoration(
-                              labelText: '服用量',
+                              labelText: "服用量",
                               icon: Icon(Icons.takeout_dining),
                             ),
                           ),
                         ),
-                        const Text('錠'),
+                        const Text("錠"),
                       ],
                     ),
                     TextFormField(
                       focusNode: _takenAtFocusNode,
                       controller: _takenAtController,
                       decoration: const InputDecoration(
-                        labelText: '服用時刻を入力 *',
+                        labelText: "服用時刻を入力 *",
                         icon: Icon(Icons.schedule),
                       ),
                     ),
@@ -95,10 +95,10 @@ class _MedicineFormState extends State<MedicineForm> {
               child: ElevatedButton(
                 onPressed: () {
                   switch (widget.type) {
-                    case 'registration':
+                    case "registration":
                       _registerMedicine();
                       break;
-                    case 'edit':
+                    case "edit":
                       _updateMedicine();
                       break;
                   }
@@ -132,7 +132,7 @@ class _MedicineFormState extends State<MedicineForm> {
     MedicineRepository.create(
       _nameController.text,
       int.parse(_quantityController.text),
-      '錠',
+      "錠",
       _takenAtController.text,
     );
     Navigator.of(context).pop();
@@ -143,30 +143,30 @@ class _MedicineFormState extends State<MedicineForm> {
   // TODO: I18n化
   Widget _getFormTitle() {
     switch (widget.type) {
-      case 'registration':
-        return const Text('お薬の登録');
-      case 'edit':
-        return const Text('お薬の編集');
+      case "registration":
+        return const Text("お薬の登録");
+      case "edit":
+        return const Text("お薬の編集");
       default:
-        return const Text('');
+        return const Text("");
     }
   }
 
   Widget _getFormAction() {
     switch (widget.type) {
-      case 'registration':
-        return const Text('登録');
-      case 'edit':
-        return const Text('更新');
+      case "registration":
+        return const Text("登録");
+      case "edit":
+        return const Text("更新");
       default:
-        return const Text('');
+        return const Text("");
     }
   }
 
   void _setDefaultText() {
-    _nameController.text = widget.name ?? '';
+    _nameController.text = widget.name ?? "";
     _quantityController.text =
-        widget.quantity == null ? '' : widget.quantity.toString();
+        widget.quantity == null ? "" : widget.quantity.toString();
     _takenAtController.text = widget.takenAt!.format(context);
   }
 }

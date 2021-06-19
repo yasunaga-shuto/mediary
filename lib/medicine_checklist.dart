@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class MedicinesCheckList extends StatefulWidget {
   const MedicinesCheckList({Key? key}) : super(key: key);
@@ -17,28 +17,28 @@ class _MedicinesCheckListState extends State<MedicinesCheckList> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
               Icon(Icons.chevron_left),
-              Text('6月17日（木）'),
+              Text("6月17日（木）"),
               Icon(Icons.chevron_right)
             ],
           ),
         ),
         const Divider(height: 1),
         CheckboxListTile(
-          title: const Text('ジェイゾロフト', style: TextStyle(color: Colors.black)),
-          subtitle: const Text('1錠 - 19:30'),
+          title: const Text("ジェイゾロフト", style: TextStyle(color: Colors.black)),
+          subtitle: const Text("1錠 - 19:30"),
           onChanged: _takeMedicine(),
           value: false,
           activeColor: Colors.green,
-          secondary: Image.asset('assets/images/jazoloft.jpeg', width: 45),
+          secondary: Image.asset("assets/images/jazoloft.jpeg", width: 45),
         ),
         const Divider(height: 1),
         CheckboxListTile(
-          title: const Text('リフレックス', style: TextStyle(color: Colors.black)),
-          subtitle: const Text('1錠 - 23:30'),
+          title: const Text("リフレックス", style: TextStyle(color: Colors.black)),
+          subtitle: const Text("1錠 - 23:30"),
           onChanged: _takeMedicine(),
           value: false,
           activeColor: Colors.green,
-          secondary: Image.asset('assets/images/reflex.jpeg', width: 45),
+          secondary: Image.asset("assets/images/reflex.jpeg", width: 45),
         ),
         const Divider(height: 1),
       ],

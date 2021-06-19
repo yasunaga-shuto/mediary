@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:mediary/medicine_form.dart';
-import 'package:mediary/models/medicine_model.dart';
-import 'package:mediary/models/medicine.dart';
+import "package:flutter/material.dart";
+import "package:mediary/medicine_form.dart";
+import "package:mediary/models/medicine_model.dart";
+import "package:mediary/models/medicine.dart";
 
 class MedicineList extends StatefulWidget {
   const MedicineList({Key? key}) : super(key: key);
@@ -47,7 +47,7 @@ class _MedicineListState extends State<MedicineList> {
         return ListTile(
           title: Text(_medicine.name),
           subtitle: Text(
-            '${_medicine.takenAt.format(context)} - ${_medicine.quantity}錠',
+            "${_medicine.takenAt.format(context)} - ${_medicine.quantity}錠",
           ),
           trailing: IconButton(
             icon: const Icon(Icons.delete),
@@ -57,7 +57,7 @@ class _MedicineListState extends State<MedicineList> {
             Navigator.of(context).push(
               MaterialPageRoute<void>(builder: (BuildContext context) {
                 return MedicineForm(
-                  type: 'edit',
+                  type: "edit",
                   id: _medicine.id,
                   name: _medicine.name,
                   quantity: _medicine.quantity,
@@ -78,17 +78,17 @@ class _MedicineListState extends State<MedicineList> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset('assets/images/empty_state.png', width: 230),
+        Image.asset("assets/images/empty_state.png", width: 230),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 15),
           child: const Text(
-            'お薬の登録がありません',
+            "お薬の登録がありません",
             style: TextStyle(
               fontSize: 16,
             ),
           ),
         ),
-        const Text('右下のボタンからお薬の登録ができます。'),
+        const Text("右下のボタンからお薬の登録ができます。"),
       ],
     );
   }

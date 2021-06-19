@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:mediary/helpers/time_of_day_helper.dart';
+import "package:flutter/material.dart";
+import "package:mediary/helpers/time_of_day_helper.dart";
 
 class Medicine {
   final int id;
@@ -22,27 +22,27 @@ class Medicine {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'name': name,
-      'quantity': quantity,
-      'takenAt': takenAt,
+      "id": id,
+      "name": name,
+      "quantity": quantity,
+      "takenAt": takenAt,
     };
   }
 
   factory Medicine.fromMap(Map<String, dynamic> json) {
     return Medicine(
-      id: json['id'],
-      name: json['name'],
-      quantity: json['quantity'],
-      unit: json['unit'],
-      takenAt: TimeOfDayHelper.parse(json['takenAt']),
-      createdAt: DateTime.tryParse(json['createdAt'] ?? ''),
-      updatedAt: DateTime.tryParse(json['updatedAt'] ?? ''),
+      id: json["id"],
+      name: json["name"],
+      quantity: json["quantity"],
+      unit: json["unit"],
+      takenAt: TimeOfDayHelper.parse(json["takenAt"]),
+      createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
+      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
     );
   }
 
   @override
   String toString() {
-    return 'Medicine{id: $id, name: $name, quantity: $quantity, unit: $unit, takenAt: $takenAt, createdAt: $createdAt, updatedAt: $updatedAt}';
+    return "Medicine{id: $id, name: $name, quantity: $quantity, unit: $unit, takenAt: $takenAt, createdAt: $createdAt, updatedAt: $updatedAt}";
   }
 }
