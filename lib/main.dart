@@ -14,10 +14,11 @@ class Mediary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Mediary',
-        theme: ThemeData(
-          primaryColor: Colors.green,
-        ),
-        home: const Home());
+      title: 'Mediary',
+      theme: ThemeData(
+        primaryColor: Colors.green,
+      ),
+      home: const Home(),
+    );
   }
 }
