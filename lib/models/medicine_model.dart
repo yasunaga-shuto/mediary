@@ -10,4 +10,31 @@ class MedicineModel extends ChangeNotifier {
     notifyListeners();
     return list;
   }
+
+  Future<Medicine> createMedicine(
+    name,
+    quantity,
+    takenAt,
+  ) async {
+    var medicine =
+        await MedicineRepository.create(name, quantity, "錠", takenAt);
+    notifyListeners();
+    return medicine;
+  }
+
+  Future<bool> updateMedicine(
+    id,
+    name,
+    quantity,
+    takenAt,
+  ) async {
+    var isUpdated = await MedicineRepository.updateMedicine(
+      id,
+      name,
+      quantity,
+      takenAt,
+    );
+    notifyListeners();
+    return isUpdated;
+  }
 }

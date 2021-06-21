@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import "medicine_checklist.dart";
-import "medicine_list.dart";
-import "medicine_form.dart";
+import "package:mediary/medicine_checklist.dart";
+import "package:mediary/medicine_form.dart";
+import "package:mediary/medicine_list.dart";
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,11 +13,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   final PageController _pageController = PageController(initialPage: 0);
-
-  final List<Widget> _pageList = const [
-    MedicinesCheckList(),
-    MedicineList(),
-  ];
+  final GlobalKey<MedicineListState> _medicineListKey =
+      GlobalKey<MedicineListState>();
 
   @override
   void initState() {
@@ -45,38 +42,44 @@ class _HomeState extends State<Home> {
       ),
       body: PageView(
         controller: _pageController,
-        children: _pageList,
+        children: [
+          const MedicinesCheckList(),
+          MedicineList(key: _medicineListKey),
+        ],
         onPageChanged: _onPageChanged,
       ),
       bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.green,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.green[200],
-          currentIndex: _selectedIndex,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.check_box), label: "服用チェック"),
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: "薬一覧"),
-            BottomNavigationBarItem(icon: Icon(Icons.event), label: "カレンダー")
-          ],
-          onTap: (int index) {
-            _selectedIndex = index;
+        backgroundColor: Colors.green,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.green[200],
+        currentIndex: _selectedIndex,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.check_box), label: "服用チェック"),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: "薬一覧"),
+          BottomNavigationBarItem(icon: Icon(Icons.event), label: "カレンダー")
+        ],
+        onTap: (int index) {
+          _selectedIndex = index;
 
-            _pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeIn,
-            );
-          }),
+          _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeIn,
+          );
+        },
+      ),
       floatingActionButton: _selectedIndex == 1
           ? FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(builder: (BuildContext context) {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) {
                     return const MedicineForm(type: "registration");
-                  }),
-                );
+                  },
+                )).then((value) =>
+                    {_medicineListKey.currentState!.setState(() {})});
+                // Navigator.pushNamed(context, "/registerMedicine")
+                //     .then((value) => {_controller.add(1)});
               },
               backgroundColor: Colors.green,
             )

@@ -41,4 +41,30 @@ class MedicineRepository {
     final rows = await db.rawQuery("SELECT * FROM $table");
     return rows.map((json) => Medicine.fromMap(json)).toList();
   }
+
+  static Future<bool> updateMedicine(
+    int? id,
+    String? name,
+    int? quantity,
+    String? takenAt,
+  ) async {
+    final now = DateTime.now();
+    final db = await instance.database;
+    try {
+      db.update(
+        "medicines",
+        {
+          "name": name,
+          "quantity": quantity,
+          "takenAt": takenAt,
+          "updatedAt": now.toString(),
+        },
+        where: "id=?",
+        whereArgs: [id],
+      );
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

@@ -7,10 +7,10 @@ class MedicineList extends StatefulWidget {
   const MedicineList({Key? key}) : super(key: key);
 
   @override
-  _MedicineListState createState() => _MedicineListState();
+  MedicineListState createState() => MedicineListState();
 }
 
-class _MedicineListState extends State<MedicineList> {
+class MedicineListState extends State<MedicineList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -54,17 +54,15 @@ class _MedicineListState extends State<MedicineList> {
             onPressed: () {},
           ),
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute<void>(builder: (BuildContext context) {
-                return MedicineForm(
-                  type: "edit",
-                  id: _medicine.id,
-                  name: _medicine.name,
-                  quantity: _medicine.quantity,
-                  takenAt: _medicine.takenAt,
-                );
-              }),
-            );
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return MedicineForm(
+                type: "edit",
+                id: _medicine.id,
+                name: _medicine.name,
+                quantity: _medicine.quantity,
+                takenAt: _medicine.takenAt,
+              );
+            })).then((value) => {setState(() {})});
           },
         );
       },

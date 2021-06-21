@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
-import "package:mediary/models/medicine_repository.dart";
+import "package:mediary/models/medicine_model.dart";
 
 class MedicineForm extends StatefulWidget {
   const MedicineForm({
@@ -128,17 +128,25 @@ class _MedicineFormState extends State<MedicineForm> {
   void _registerMedicine() {
     // TODO: バリデーション
     // TODO: unitを変えられるようにする
-    // TODO: 再描画
-    MedicineRepository.create(
+    MedicineModel().createMedicine(
       _nameController.text,
       int.parse(_quantityController.text),
-      "錠",
       _takenAtController.text,
     );
-    Navigator.of(context).pop();
+    Navigator.pop(context);
   }
 
-  void _updateMedicine() {}
+  void _updateMedicine() async {
+    var isUpdated = await MedicineModel().updateMedicine(
+      widget.id,
+      _nameController.text,
+      int.parse(_quantityController.text),
+      _takenAtController.text,
+    );
+    if (isUpdated) {
+      Navigator.pop(context);
+    }
+  }
 
   // TODO: I18n化
   Widget _getFormTitle() {
@@ -166,7 +174,21 @@ class _MedicineFormState extends State<MedicineForm> {
   void _setDefaultText() {
     _nameController.text = widget.name ?? "";
     _quantityController.text =
-        widget.quantity == null ? "" : widget.quantity.toString();
+        widget.quantity == null ? "" : widget.quantity!.toString();
     _takenAtController.text = widget.takenAt!.format(context);
   }
+}
+
+class ScreenArguments {
+  ScreenArguments(
+    this.id,
+    this.name,
+    this.quantity,
+    this.takenAt,
+  );
+
+  final int? id;
+  final String? name;
+  final int? quantity;
+  final TimeOfDay? takenAt;
 }
