@@ -64,9 +64,9 @@ class MedicineListState extends State<MedicineList> {
               );
             })).then((value) {
               setState(() {});
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("お薬が更新されました"),
-                duration: Duration(seconds: 3),
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(value),
+                duration: const Duration(seconds: 3),
               ));
             });
           },

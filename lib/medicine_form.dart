@@ -133,7 +133,7 @@ class _MedicineFormState extends State<MedicineForm> {
       int.parse(_quantityController.text),
       _takenAtController.text,
     );
-    Navigator.pop(context);
+    Navigator.pop(context, "お薬が登録されました");
   }
 
   void _updateMedicine() async {
@@ -144,7 +144,7 @@ class _MedicineFormState extends State<MedicineForm> {
       _takenAtController.text,
     );
     if (isUpdated) {
-      Navigator.pop(context);
+      Navigator.pop(context, "お薬が更新されました");
     }
   }
 

@@ -78,16 +78,16 @@ class _HomeState extends State<Home> {
                   },
                 )).then((value) {
                   _medicineListKey.currentState!.setState(() {});
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("お薬が登録されました"),
-                    duration: Duration(seconds: 3),
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(value),
+                    duration: const Duration(seconds: 3),
                   ));
                 });
               },
               backgroundColor: Colors.green,
             )
           : null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
