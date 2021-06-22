@@ -62,7 +62,13 @@ class MedicineListState extends State<MedicineList> {
                 quantity: _medicine.quantity,
                 takenAt: _medicine.takenAt,
               );
-            })).then((value) => {setState(() {})});
+            })).then((value) {
+              setState(() {});
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("お薬が更新されました"),
+                duration: Duration(seconds: 3),
+              ));
+            });
           },
         );
       },

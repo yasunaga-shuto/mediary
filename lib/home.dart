@@ -76,10 +76,13 @@ class _HomeState extends State<Home> {
                   builder: (context) {
                     return const MedicineForm(type: "registration");
                   },
-                )).then((value) =>
-                    {_medicineListKey.currentState!.setState(() {})});
-                // Navigator.pushNamed(context, "/registerMedicine")
-                //     .then((value) => {_controller.add(1)});
+                )).then((value) {
+                  _medicineListKey.currentState!.setState(() {});
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("お薬が登録されました"),
+                    duration: Duration(seconds: 3),
+                  ));
+                });
               },
               backgroundColor: Colors.green,
             )
