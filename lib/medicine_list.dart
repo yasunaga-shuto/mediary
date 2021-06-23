@@ -24,10 +24,10 @@ class MedicineListState extends State<MedicineList> {
     AsyncSnapshot<List<Medicine>> snapshot,
   ) {
     if (snapshot.connectionState == ConnectionState.done) {
-      if (snapshot.hasData) {
-        return _buildMedicineList(snapshot);
-      } else {
+      if (snapshot.data!.isEmpty) {
         return _buildEmptyState();
+      } else {
+        return _buildMedicineList(snapshot);
       }
     } else {
       return const CircularProgressIndicator();
