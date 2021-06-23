@@ -47,44 +47,7 @@ class _MedicineFormState extends State<MedicineForm> {
     return Scaffold(
       appBar: AppBar(
         title: _getFormTitle(),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) {
-                  return AlertDialog(
-                      title: const Text(
-                        "削除してよろしいですか？",
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      content: const Text(
-                        "削除すると元に戻せません。",
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text("キャンセル"),
-                          onPressed: () {},
-                        ),
-                        TextButton(
-                          child: const Text("OK"),
-                          onPressed: () async {
-                            var isDeleted =
-                                await MedicineModel().deleteMedicine(widget.id);
-                            if (isDeleted) {
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop("削除が完了しました。");
-                            }
-                          },
-                        ),
-                      ]);
-                },
-              );
-            },
-          ),
-        ],
+        actions: _buildDeleteButton(),
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -151,6 +114,52 @@ class _MedicineFormState extends State<MedicineForm> {
         ),
       ),
     );
+  }
+
+  List<Widget> _buildDeleteButton() {
+    if (widget.type == "edit") {
+      return [
+        IconButton(
+          icon: const Icon(Icons.delete),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) {
+                return AlertDialog(
+                  title: const Text(
+                    "削除してよろしいですか？",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  content: const Text(
+                    "削除すると元に戻せません。",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text("キャンセル"),
+                      onPressed: () {},
+                    ),
+                    TextButton(
+                      child: const Text("OK"),
+                      onPressed: () async {
+                        var isDeleted =
+                            await MedicineModel().deleteMedicine(widget.id);
+                        if (isDeleted) {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop("削除が完了しました。");
+                        }
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        )
+      ];
+    } else {
+      return [];
+    }
   }
 
   void _selectTime() async {

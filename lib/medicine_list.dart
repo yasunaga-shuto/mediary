@@ -66,6 +66,7 @@ class MedicineListState extends State<MedicineList> {
               ));
             });
           },
+          trailing: const Icon(Icons.chevron_right),
         );
       },
       separatorBuilder: (BuildContext context, int index) {
