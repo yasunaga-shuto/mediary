@@ -49,10 +49,6 @@ class MedicineListState extends State<MedicineList> {
           subtitle: Text(
             "${_medicine.takenAt.format(context)} - ${_medicine.quantity}錠",
           ),
-          trailing: IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () {},
-          ),
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return MedicineForm(

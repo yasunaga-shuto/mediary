@@ -87,7 +87,7 @@ class _HomeState extends State<Home> {
               backgroundColor: Colors.green,
             )
           : null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

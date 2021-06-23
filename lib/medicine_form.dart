@@ -45,7 +45,15 @@ class _MedicineFormState extends State<MedicineForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: _getFormTitle()),
+      appBar: AppBar(
+        title: _getFormTitle(),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () {},
+          ),
+        ],
+      ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
