@@ -50,7 +50,32 @@ class _MedicineFormState extends State<MedicineForm> {
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) {
+                  return AlertDialog(
+                      title: const Text(
+                        "削除してよろしいですか？",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      content: const Text(
+                        "削除すると元に戻せません。",
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text("キャンセル"),
+                          onPressed: () {},
+                        ),
+                        TextButton(
+                          child: const Text("OK"),
+                          onPressed: () {},
+                        ),
+                      ]);
+                },
+              );
+            },
           ),
         ],
       ),
