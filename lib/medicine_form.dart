@@ -70,7 +70,14 @@ class _MedicineFormState extends State<MedicineForm> {
                         ),
                         TextButton(
                           child: const Text("OK"),
-                          onPressed: () {},
+                          onPressed: () async {
+                            var isDeleted =
+                                await MedicineModel().deleteMedicine(widget.id);
+                            if (isDeleted) {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop("削除が完了しました。");
+                            }
+                          },
                         ),
                       ]);
                 },

@@ -67,4 +67,18 @@ class MedicineRepository {
       return false;
     }
   }
+
+  static Future<bool> deleteMedicine(id) async {
+    final db = await instance.database;
+    try {
+      db.delete(
+        "medicines",
+        where: "id=?",
+        whereArgs: [id],
+      );
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

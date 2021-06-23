@@ -37,4 +37,10 @@ class MedicineModel extends ChangeNotifier {
     notifyListeners();
     return isUpdated;
   }
+
+  Future<bool> deleteMedicine(id) async {
+    var isDeleted = await MedicineRepository.deleteMedicine(id);
+    notifyListeners();
+    return isDeleted;
+  }
 }
