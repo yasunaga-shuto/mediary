@@ -27,6 +27,7 @@ class _MedicineFormState extends State<MedicineForm> {
   final TextEditingController _takenAtController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -51,66 +52,89 @@ class _MedicineFormState extends State<MedicineForm> {
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          children: <Widget>[
-            Container(
-                margin: const EdgeInsets.only(bottom: 20),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "薬の名前 *",
-                        icon: Icon(Icons.healing),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              Container(
+                  margin: const EdgeInsets.only(bottom: 20),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: "薬の名前 *",
+                          icon: Icon(Icons.healing),
+                        ),
+                        controller: _nameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "薬の名前を入力してください。";
+                          }
+                          return null;
+                        },
                       ),
-                      controller: _nameController,
-                    ),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: TextField(
-                            controller: _quantityController,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            decoration: const InputDecoration(
-                              labelText: "服用量",
-                              icon: Icon(Icons.takeout_dining),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: TextFormField(
+                              controller: _quantityController,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              decoration: const InputDecoration(
+                                labelText: "服用量 *",
+                                icon: Icon(Icons.takeout_dining),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "服用量を入力してください。";
+                                }
+                                return null;
+                              },
                             ),
                           ),
-                        ),
-                        const Text("錠"),
-                      ],
-                    ),
-                    TextFormField(
-                      focusNode: _takenAtFocusNode,
-                      controller: _takenAtController,
-                      decoration: const InputDecoration(
-                        labelText: "服用時刻を入力 *",
-                        icon: Icon(Icons.schedule),
+                          const Text("錠"),
+                        ],
                       ),
-                    ),
-                  ],
-                )),
-            SizedBox(
-              width: double.infinity,
-              height: 40.0,
-              child: ElevatedButton(
-                onPressed: () {
-                  switch (widget.type) {
-                    case "registration":
-                      _registerMedicine();
-                      break;
-                    case "edit":
-                      _updateMedicine();
-                      break;
-                  }
-                },
-                child: _getFormAction(),
-                style: ElevatedButton.styleFrom(primary: Colors.green),
+                      TextFormField(
+                        focusNode: _takenAtFocusNode,
+                        controller: _takenAtController,
+                        decoration: const InputDecoration(
+                          labelText: "服用時刻を入力 *",
+                          icon: Icon(Icons.schedule),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "服用時刻を入力してください。";
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  )),
+              SizedBox(
+                width: double.infinity,
+                height: 40.0,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      switch (widget.type) {
+                        case "registration":
+                          _registerMedicine();
+                          break;
+                        case "edit":
+                          _updateMedicine();
+                          break;
+                      }
+                    }
+                  },
+                  child: _getFormAction(),
+                  style: ElevatedButton.styleFrom(primary: Colors.green),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
