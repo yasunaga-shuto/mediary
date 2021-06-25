@@ -162,7 +162,9 @@ class _MedicineFormState extends State<MedicineForm> {
                   actions: <Widget>[
                     TextButton(
                       child: const Text("キャンセル"),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                     ),
                     TextButton(
                       child: const Text("OK"),
