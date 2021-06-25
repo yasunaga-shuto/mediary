@@ -57,62 +57,63 @@ class _MedicineFormState extends State<MedicineForm> {
           child: Column(
             children: <Widget>[
               Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: "薬の名前 *",
-                          icon: Icon(Icons.healing),
-                        ),
-                        controller: _nameController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "薬の名前を入力してください。";
-                          }
-                          return null;
-                        },
+                margin: const EdgeInsets.only(bottom: 20),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: "薬の名前 *",
+                        icon: Icon(Icons.healing),
                       ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: TextFormField(
-                              controller: _quantityController,
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              decoration: const InputDecoration(
-                                labelText: "服用量 *",
-                                icon: Icon(Icons.takeout_dining),
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "服用量を入力してください。";
-                                }
-                                return null;
-                              },
+                      controller: _nameController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "薬の名前を入力してください。";
+                        }
+                        return null;
+                      },
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: TextFormField(
+                            controller: _quantityController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            decoration: const InputDecoration(
+                              labelText: "服用量 *",
+                              icon: Icon(Icons.takeout_dining),
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "服用量を入力してください。";
+                              }
+                              return null;
+                            },
                           ),
-                          const Text("錠"),
-                        ],
-                      ),
-                      TextFormField(
-                        focusNode: _takenAtFocusNode,
-                        controller: _takenAtController,
-                        decoration: const InputDecoration(
-                          labelText: "服用時刻を入力 *",
-                          icon: Icon(Icons.schedule),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "服用時刻を入力してください。";
-                          }
-                          return null;
-                        },
+                        const Text("錠"),
+                      ],
+                    ),
+                    TextFormField(
+                      focusNode: _takenAtFocusNode,
+                      controller: _takenAtController,
+                      decoration: const InputDecoration(
+                        labelText: "服用時刻を入力 *",
+                        icon: Icon(Icons.schedule),
                       ),
-                    ],
-                  )),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "服用時刻を入力してください。";
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(
                 width: double.infinity,
                 height: 40.0,
