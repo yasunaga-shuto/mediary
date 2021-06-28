@@ -202,7 +202,6 @@ class _MedicineFormState extends State<MedicineForm> {
   }
 
   void _registerMedicine() {
-    // TODO: バリデーション
     // TODO: unitを変えられるようにする
     MedicineModel().createMedicine(
       _nameController.text,

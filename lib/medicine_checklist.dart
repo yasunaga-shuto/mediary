@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:mediary/models/medicine_model.dart";
+import "package:mediary/models/medicine.dart";
 
 class MedicinesCheckList extends StatefulWidget {
   const MedicinesCheckList({Key? key}) : super(key: key);
@@ -10,39 +12,49 @@ class MedicinesCheckList extends StatefulWidget {
 class _MedicinesCheckListState extends State<MedicinesCheckList> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return FutureBuilder(
+      future: MedicineModel().getMedicines(),
+      builder: _buildList,
+    );
+  }
+
+  Widget _buildList(
+    BuildContext context,
+    AsyncSnapshot<List<Medicine>> snapshot,
+  ) {
+    if (snapshot.connectionState == ConnectionState.done) {
+      if (snapshot.data!.isEmpty) {
+        return _buildEmptyState();
+      } else {
+        return _buildChecklist();
+      }
+    } else {
+      return const CircularProgressIndicator();
+    }
+  }
+
+  Widget _buildEmptyState() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ListTile(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Icon(Icons.chevron_left),
-              Text("6月17日（木）"),
-              Icon(Icons.chevron_right)
-            ],
+        // TODO: 画像変更
+        Image.asset("assets/images/empty_state.png", width: 230),
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 15),
+          child: const Text(
+            "お薬の登録がありません",
+            style: TextStyle(
+              fontSize: 16,
+            ),
           ),
         ),
-        const Divider(height: 1),
-        CheckboxListTile(
-          title: const Text("ジェイゾロフト", style: TextStyle(color: Colors.black)),
-          subtitle: const Text("1錠 - 19:30"),
-          onChanged: _takeMedicine(),
-          value: false,
-          activeColor: Colors.green,
-          secondary: Image.asset("assets/images/jazoloft.jpeg", width: 45),
-        ),
-        const Divider(height: 1),
-        CheckboxListTile(
-          title: const Text("リフレックス", style: TextStyle(color: Colors.black)),
-          subtitle: const Text("1錠 - 23:30"),
-          onChanged: _takeMedicine(),
-          value: false,
-          activeColor: Colors.green,
-          secondary: Image.asset("assets/images/reflex.jpeg", width: 45),
-        ),
-        const Divider(height: 1),
+        const Text("薬一覧からお薬を登録してみましょう。"),
       ],
     );
+  }
+
+  Widget _buildChecklist() {
+    return ListView();
   }
 
   _takeMedicine() {}
