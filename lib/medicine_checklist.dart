@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:mediary/models/medicine_model.dart";
 import "package:mediary/models/medicine.dart";
+import 'package:mediary/helpers/date_helper.dart';
 
 class MedicinesCheckList extends StatefulWidget {
   const MedicinesCheckList({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class _MedicinesCheckListState extends State<MedicinesCheckList> {
       if (snapshot.data!.isEmpty) {
         return _buildEmptyState();
       } else {
-        return _buildChecklist();
+        return _buildChecklist(snapshot.data);
       }
     } else {
       return const CircularProgressIndicator();
@@ -53,8 +54,38 @@ class _MedicinesCheckListState extends State<MedicinesCheckList> {
     );
   }
 
-  Widget _buildChecklist() {
-    return ListView();
+  Widget _buildChecklist(medicines) {
+    return ListView.separated(
+      itemCount: medicines == null ? 1 : medicines.length + 2,
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(height: 1);
+      },
+      itemBuilder: (BuildContext context, int index) {
+        if (index == medicines.length + 1) {
+          return const Divider(height: 1);
+        }
+        if (index == 0) {
+          return ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Icon(Icons.chevron_left),
+                Text(DateHelper.getFormattedToday()),
+                const Icon(Icons.chevron_right),
+              ],
+            ),
+          );
+        }
+
+        return CheckboxListTile(
+          title: const Text("ジェイゾロフト", style: TextStyle(color: Colors.black)),
+          subtitle: const Text("1錠 - 19:30"),
+          value: false,
+          onChanged: _takeMedicine(),
+          secondary: Image.asset("assets/images/jazoloft.jpeg", width: 45),
+        );
+      },
+    );
   }
 
   _takeMedicine() {}
