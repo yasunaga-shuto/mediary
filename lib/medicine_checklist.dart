@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:mediary/models/medicine_model.dart";
 import "package:mediary/models/medicine.dart";
 import 'package:mediary/helpers/date_helper.dart';
+import 'package:mediary/helpers/time_of_day_helper.dart';
 
 class MedicinesCheckList extends StatefulWidget {
   const MedicinesCheckList({Key? key}) : super(key: key);
@@ -77,12 +78,18 @@ class _MedicinesCheckListState extends State<MedicinesCheckList> {
           );
         }
 
+        final medicine = medicines[index - 1];
         return CheckboxListTile(
-          title: const Text("ジェイゾロフト", style: TextStyle(color: Colors.black)),
-          subtitle: const Text("1錠 - 19:30"),
+          title: Text(
+            medicine.name,
+            style: const TextStyle(color: Colors.black),
+          ),
+          subtitle: Text(
+            "${medicine.quantity}錠 - ${TimeOfDayHelper.fromTimeOfDay(medicine.takenAt)}",
+          ),
           value: false,
           onChanged: _takeMedicine(),
-          secondary: Image.asset("assets/images/jazoloft.jpeg", width: 45),
+          secondary: Image.asset("assets/images/medicine.png", width: 37),
         );
       },
     );

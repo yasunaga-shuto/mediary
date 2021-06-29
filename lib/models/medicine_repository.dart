@@ -29,7 +29,7 @@ class MedicineRepository {
       name: row["name"],
       quantity: row["quantity"],
       unit: row["unit"],
-      takenAt: TimeOfDayHelper.parse(row["takenAt"]),
+      takenAt: TimeOfDayHelper.toTimeOfDay(row["takenAt"]),
       createdAt: now,
       updatedAt: now,
     );

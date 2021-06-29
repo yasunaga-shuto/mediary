@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
 class TimeOfDayHelper {
-  static TimeOfDay parse(String timeText) {
+  static TimeOfDay toTimeOfDay(String timeText) {
     try {
       final time = timeText.split(":");
       final unit = time[1].split(" ");
@@ -19,5 +19,9 @@ class TimeOfDayHelper {
     } catch (e) {
       return const TimeOfDay(hour: 0, minute: 0);
     }
+  }
+
+  static String fromTimeOfDay(TimeOfDay time) {
+    return "${time.hour}:${time.minute}";
   }
 }

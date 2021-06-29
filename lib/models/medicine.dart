@@ -35,7 +35,7 @@ class Medicine {
       name: json["name"],
       quantity: json["quantity"],
       unit: json["unit"],
-      takenAt: TimeOfDayHelper.parse(json["takenAt"]),
+      takenAt: TimeOfDayHelper.toTimeOfDay(json["takenAt"]),
       createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
       updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
     );
