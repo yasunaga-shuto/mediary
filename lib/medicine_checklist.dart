@@ -12,10 +12,25 @@ class MedicinesCheckList extends StatefulWidget {
 }
 
 class _MedicinesCheckListState extends State<MedicinesCheckList> {
+  Future<List<Medicine>>? _medicines;
+  List<bool?>? _takenList;
+
+  @override
+  void initState() {
+    _medicines = MedicineModel().getMedicines();
+    _setTakenList();
+    super.initState();
+  }
+
+  void _setTakenList() async {
+    var medicines = await MedicineModel().getMedicines();
+    _takenList = medicines.map((medicine) => false).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: MedicineModel().getMedicines(),
+      future: _medicines,
       builder: _buildList,
     );
   }
@@ -87,13 +102,16 @@ class _MedicinesCheckListState extends State<MedicinesCheckList> {
           subtitle: Text(
             "${medicine.quantity}錠 - ${TimeOfDayHelper.fromTimeOfDay(medicine.takenAt)}",
           ),
-          value: false,
-          onChanged: _takeMedicine(),
+          value: _takenList![index - 1],
+          onChanged: (checked) {
+            setState(() {
+              _takenList![index - 1] = checked;
+            });
+          },
           secondary: Image.asset("assets/images/medicine.png", width: 37),
+          activeColor: Colors.green,
         );
       },
     );
   }
-
-  _takeMedicine() {}
 }
